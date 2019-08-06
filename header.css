@@ -1,0 +1,230 @@
+/* =============================================================================
+												    		header
+============================================================================= */
+
+
+/* ===============================
+	      .navicon-button
+=============================== */
+
+
+.navicon-button {
+	position: fixed;
+	top: 40px;
+	left: 40px;
+	height: 35px;
+	width: 35px;
+	padding: 0;
+	transition: 0.25s;
+	/* Whatever the z-index, it has to be higher
+	than the z-index applied to the .primary-navigation. */
+	z-index: 15;
+}
+
+.navicon-button:hover {
+	cursor: pointer;
+}
+
+.navicon-button .bar {
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	border-radius: 2px;
+	transition: transform 0.25s linear, opacity 0.15s linear;
+}
+
+.navicon-button .bar-top {
+	top: 0;
+	border: 4px solid white;
+	border-bottom: none;
+}
+.navicon-button:hover .bar-top { border-color: #61DAFB; }
+
+
+.navicon-button .bar-middle {
+	top: 4px;
+	height: 4px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	background-color: white;
+}
+.navicon-button:hover .bar-middle{ background-color: #61DAFB; }
+
+
+.navicon-button .bar-bottom {
+	top: 22px;
+	border: 4px solid white;
+	border-top: none;
+}
+.navicon-button:hover .bar-bottom { border-color: #61DAFB; }
+
+.navicon-open {
+	left: 25px;
+}
+
+.navicon-open .bar-top {
+	border-color: white;
+	transform: rotate(45deg) translate(8px, 8px);
+	transition: transform 0.25s linear;
+}
+
+.navicon-open .bar-middle {
+	background-color: white;
+	transform: translate(250px); /* Arbitrary */
+	opacity: 0;
+  transition: transform 0.15s linear, opacity 0.15s linear;
+}
+
+.navicon-open .bar-bottom {
+	border-color: white;
+	transform: rotate(-45deg) translate(7px, -7px);
+  transition: transform 0.25s linear;
+}
+
+
+/* ================================
+		  	   Navigaton Menu
+================================= */
+
+
+/* The slide out feature works by animating the margin property.
+Moreover, a more modern approach might be to use transform: translateX();
+While the slide-out feature doesn't really need jQuery, the
+dropdown navigation items use slideToggle();
+ */
+
+.primary-navigation {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 280px; /* Arbitrary */
+	transform: translateX(-100%);
+	font-size: 1em;
+	font-weight: 700;
+	background-color: rgba(0,0,0,0.5);
+	border-right: 1px solid #333;
+	transition: transform 0.25s linear;
+	overflow: auto;
+	z-index: 10;
+}
+
+/* .show-navigation is the toggle class */
+.primary-navigation.show-navigation {
+	transform: translateX(0);
+}
+
+
+/* ===============================
+	       .menu-container
+=============================== */
+
+
+.menu-container {
+	margin: 100px 0 0 0;
+}
+
+.menu-container ul {
+	margin: 0;
+	padding: 0;
+}
+
+.menu-container ul ul {
+	margin-top: 20px;
+}
+
+.menu-container li {
+	padding: 10px 0 10px 20px;
+	list-style: none;
+}
+
+.menu-container li > a {
+	position: relative; /* For ::after, which is position: absolute. */
+	color: white;
+	font-size: 1.1em;
+	text-decoration: none;
+}
+
+/* Underline animation */
+.menu-container li > a::after {
+	display: block;
+	position: absolute;
+	top: 110%;
+	left: 50%;
+	transform: translate(-50%);
+	height: 3px;
+	width: 100%;
+	content: "";
+	background-image: linear-gradient(to right, transparent 50.3%, #61DAFB 50.3%);
+	transition: background-position 0.15s linear;
+	background-size: 200% auto;
+	border-radius: 5px;
+}
+
+/* Underline animation */
+.menu-container li > a:hover::after {
+	background-position: -100% 0;
+}
+
+.menu-container .dropdown {
+	position: relative; /* .dropdown-arrow is position: absolute */
+}
+
+.menu-container .dropdown .dropdown-menu {
+	display: none;
+}
+
+.dropdown-arrow {
+	display: inline-block;
+	position: relative;
+	top: -2px;
+	left: 10px;
+  height: 12px;
+  width:  12px;
+	margin: 0 15px 0 0;
+	padding: 0;
+  border-left:   2px solid white;
+  border-bottom: 2px solid white;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+	cursor: pointer;
+}
+
+.dropdown-arrow.open {
+  transform: translateY(7px) rotate(135deg);
+}
+
+.menu-container .dropdown > a:hover > span {
+	border-left-color:  #61DAFB;
+  border-bottom-color: #61DAFB;
+	transition: border-left-color 0.15s linear 0.15s, border-bottom-color 0.15s linear 0.15s;
+}
+
+
+/* =============================================================================
+												    			Media Queries
+============================================================================= */
+
+
+@media (max-width: 700px) {
+	.primary-navigation {
+		width: 100%;
+		border: none;
+    background-color: rgba(0,0,0,0.75);
+	}
+
+	.menu-container {
+		margin: 50px 0 0 0;
+	}
+
+	.menu-container li {
+		padding: 15px 0;
+		text-align: center;
+	}
+
+	.menu-container li a {
+		font-size: 1.5em;
+	}
+}
